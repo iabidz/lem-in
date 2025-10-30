@@ -26,7 +26,9 @@ func BFS(data *types.FarmData, start string, visited map[string]bool, hasDirectA
 		}
 		for _, neighbor := range data.Links[current] {
 			if !visited[neighbor] {
-				visited[neighbor] = true
+				if neighbor != end {
+					visited[neighbor] = true
+				}
 				Source[neighbor] = current
 				queue = append(queue, neighbor)
 			}

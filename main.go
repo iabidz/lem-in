@@ -27,19 +27,12 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	Paths, err := pathfinder.Grouppaths(data)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	if Paths.Pathgroup == nil {
+	
+	Paths := pathfinder.Grouppaths(data)
+	if Paths == nil {
 		fmt.Println("No paths found from start to end.")
 		return
 	}
-	
-	
-
 	simulator.Simulation(data, Paths)
 	simulator.Printpaths(data, Paths)
 }

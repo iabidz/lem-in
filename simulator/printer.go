@@ -38,7 +38,7 @@ func Printpaths(data *types.FarmData, Paths *types.Path) {
 			}
 		}
 		if len(movements) > 0 {
-			fmt.Println(strings.Join(movements, ""))
+			fmt.Println(strings.Join(movements, " "))
 		}
 	}
 }

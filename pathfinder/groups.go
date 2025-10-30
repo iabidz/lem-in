@@ -1,7 +1,6 @@
 package pathfinder
 
 import (
-	"fmt"
 	"lem-in/types"
 )
 
@@ -10,7 +9,6 @@ import (
 // 1. Creates initial paths from the start room through each available link
 // 2. For each initial path, checks if there's direct access to the end room
 // 3. Looks for additional sub-paths that can be used in parallel while avoiding path conflicts
-
 // 4. Groups compatible paths together to allow multiple ants to move simultaneously
 //
 // Parameters:
@@ -18,24 +16,16 @@ import (
 //
 // Returns:
 //   - Pointer to Path structure containing groups of valid paths from start to end
-func Grouppaths(data *types.FarmData) (*types.Path, error) {
+func Grouppaths(data *types.FarmData) *types.Path {
 	Paths := &types.Path{
 		Pathgroup: make([][][]string, 0),
 	}
-	isempty := false
 	for _, links := range data.Links[data.StartRoom] {
 		gpath := [][]string{}
 		gpath = append(gpath, BFS(data, links, map[string]bool{data.StartRoom: true}, false))
 		Paths.Pathgroup = append(Paths.Pathgroup, gpath)
-		if len(gpath[0]) != 0 {
-			isempty = true
-		}
 
 	}
-	if !isempty {
-		return nil, fmt.Errorf("Error: no paths found from start to end")
-	}
-	
 
 	for i, path := range Paths.Pathgroup {
 
@@ -64,5 +54,5 @@ func Grouppaths(data *types.FarmData) (*types.Path, error) {
 		if len(Paths.Pathgroup[i]) == 1 {
 		}
 	}
-	return Paths, nil
+	return Paths
 }
